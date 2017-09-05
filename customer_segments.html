@@ -18559,7 +18559,7 @@ Once you have performed this implementation, the dataset will be stored in the v
     
     <span class="c1"># TODO: Use the interquartile range to calculate an outlier step (1.5 times the interquartile range)</span>
     <span class="n">step</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">Q3</span><span class="o">-</span><span class="n">Q1</span><span class="p">)</span>
-
+      <span class="c1">#print(step)</span>
     <span class="c1"># Display the outliers</span>
     <span class="k">print</span> <span class="s2">&quot;Data points considered outliers for the feature &#39;{}&#39;:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
     <span class="n">display</span><span class="p">(</span><span class="n">log_data</span><span class="p">[</span><span class="o">~</span><span class="p">((</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="n">step</span><span class="p">))])</span>
@@ -19341,6 +19341,13 @@ Once you have performed this implementation, the dataset will be stored in the v
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Yes, when using the Turkey method, we initialize a step in order to gauge how unlikely it would be to get a value past the step, therefore from the underlying statistics of the Turkey method it is necessary to remove these outliers.</p>
+<p>These outliers are: 
+    75 Grocery and Detergents_paper
+    65 Frozen and Fresh
+    66 Delicatessen and Fresh
+    128 Delicatessen and Fresh
+    154 Delicatessen Milk and Grocery</p>
+<p>In removing these outliers we can help normalize our data since the data in these indicies heavily skew our dataset</p>
 
 </div>
 </div>
@@ -19740,6 +19747,8 @@ MucZ7RipCwAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first two principal components explain roughly .72 of the total variance. The first four components account for roughly .91 of the total variance. The first four dimensions represent the fact that customer spending is highly dependent on detergents paper, fresh, frozen, and delicatessen.</p>
 <p>If we consider the first dimension we have heavy positively weighted Grocery, Milk, and Detergents_Paper features which are unique across the 6 dimensions. This shows that we make want to create a customer segment due to these attributes. This particular segment (dimension 1) would favor an establishment that sells a variety of products and not soley focused on produce.</p>
+<p>Dimension 2 is positively weighted in fresh,frozen, and delicatessens with very little negatively weighted features. These positive weights suggest that these customers spend most of their money at establishments such as diners or fast food restaurants.</p>
+<p>Dimension 3 has a very negatively weighted fresh and very postively weighted delicatessen attributes. Lastly, dimension 4 has an almost equally positive weight for delicatessens; however, also contains a very negatively weighted frozen feature.</p>
 
 </div>
 </div>
@@ -22356,8 +22365,11 @@ Chosen samples of wholesale customers dataset:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>An A/B test is when we can to create a small change in an existing method or in this case product, and evaluate that change to see which variation performs better. In other words which segementation of people like their variation more. This occurs often in testing the UI for websites. One particularly interesting test is the BlueOcean plugin for Jenkins which changes the UI, this was largely a beta version and was only recently released due to the favortism of the UI compared to normal Jenkins UI. Where the consumers would be devops engineers and the test group would be those who would enable the plugin and those who did not.</p>
-<p>Due to our dimensionality of customer segements from the PCA section, we can push this change onto a dimension (found in earlier section) where it was heavily weighted in a variety of products, or simply one that does not have a heavily weighted fresh and grocery features since the change of delivery service will certain be noticed by those who buy fresh and groceries consistently. Furthermore we can have a control group (one that would not have a change) that is similar to the dimension previously described in order to understand the underlying variable that is effected through this change of delivery service. The dimension for the experiment would be dimension 1 and the controlled group would be dimension 5 because of these relative similarities compared to the rest of the dimensions.</p>
+<p>We know that we have two clusters of customers:
+    Cluster 0: These customers value fresh food (i.e. Mcdonalds, cafes, etc.)
+    Cluster 1: These customers value a variety of products (i.e. Target)</p>
+
+<pre><code>Using this information to ensure that the change in delivery service is applied to customer segments that will react positively, we realize that segmentation of cluster 1 would be best for this change of service. This is because cluster 0 values fresh food so it is necessary that their deliveries are updated daily, while cluster 1 buys a variety of products and possibly in large quantities, therefore the change in delivery might go unnoticed. Afterwards the same change of service can be applied to a segment of cluster 0. Afterwards, we can compare the results of the tests and determine if there is a pattern in customer feedback between clusters.</code></pre>
 
 </div>
 </div>
