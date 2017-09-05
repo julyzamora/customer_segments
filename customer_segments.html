@@ -14297,7 +14297,8 @@ DMMwDMMwjCny/wF2eAYjCf/r7QAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Considering the correlation table in the previous section, we can see that there is a very large correlation between grocery and milk (.72) and even more so between Detergent_paper and Grocery (.92)! This means that the information about detergent_paper can almost be completely described by the information about groceries</p>
+<p>Considering the correlation table in the previous section, we can see that there is a very large correlation between grocery and milk (.72) and even more so between Detergent_paper and Grocery (.92)! This means that the information about detergent_paper can almost be completely described by the information about groceries.</p>
+<p>The data distrubtion for these features are described by the diagonal entries. These entries contain information of a specific feature. The important thing to take away from these entries are that all of these features are positively skewed. (Right end of the tail is longer than the left) This means that there exists an unbalance distribution of features. In order to properly apply our clustering algorithm it is necessary that we normalize these distributions such that they look as if they are balanced (normal distrubtion or gaussian).</p>
 
 </div>
 </div>
@@ -19738,6 +19739,7 @@ MucZ7RipCwAAAABJRU5ErkJggg==
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first two principal components explain roughly .72 of the total variance. The first four components account for roughly .91 of the total variance. The first four dimensions represent the fact that customer spending is highly dependent on detergents paper, fresh, frozen, and delicatessen.</p>
+<p>If we consider the first dimension we have heavy positively weighted Grocery, Milk, and Detergents_Paper features which are unique across the 6 dimensions. This shows that we make want to create a customer segment due to these attributes. This particular segment (dimension 1) would favor an establishment that sells a variety of products and not soley focused on produce.</p>
 
 </div>
 </div>
@@ -22355,7 +22357,7 @@ Chosen samples of wholesale customers dataset:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>An A/B test is when we can to create a small change in an existing method or in this case product, and evaluate that change to see which variation performs better. In other words which segementation of people like their variation more. This occurs often in testing the UI for websites. One particularly interesting test is the BlueOcean plugin for Jenkins which changes the UI, this was largely a beta version and was only recently released due to the favortism of the UI compared to normal Jenkins UI. Where the consumers would be devops engineers and the test group would be those who would enable the plugin and those who did not.</p>
-<p>Due to our partition of customer segements, we can push this change onto cluster 1, since it is much more likely that cluster 1 who favors a more general spending trend. Cluster 1 makes much less produce and frozen purchases therefore reducing the delivery service won't notice the change as much as Cluster 0 who is much more likely to buy produce every day and notice the change.</p>
+<p>Due to our dimensionality of customer segements from the PCA section, we can push this change onto a dimension (found in earlier section) where it was heavily weighted in a variety of products, or simply one that does not have a heavily weighted fresh and grocery features since the change of delivery service will certain be noticed by those who buy fresh and groceries consistently. Furthermore we can have a control group (one that would not have a change) that is similar to the dimension previously described in order to understand the underlying variable that is effected through this change of delivery service. The dimension for the experiment would be dimension 1 and the controlled group would be dimension 5 because of these relative similarities compared to the rest of the dimensions.</p>
 
 </div>
 </div>
